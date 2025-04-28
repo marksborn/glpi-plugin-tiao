@@ -1,0 +1,15 @@
+<?php
+include __DIR__ . '/../../inc/includes.php';
+
+// Checa permissão de leitura para o plugin
+Session::checkRight('plugin', 'tiao', 'r');
+
+// Renderiza header do GLPI
+Html::header('Tião', $_SERVER['PHP_SELF'], 'plugins', 'tiao');
+
+// Container onde o chat será inicializado
+echo '<div id="tiao-chat-root"></div>';
+
+// Footer padrão do GLPI
+Html::footer();
+?>
