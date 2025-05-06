@@ -34,26 +34,26 @@ function plugin_tiao_check_prerequisites() {
  */
 function plugin_tiao_install() {
     global $DB;
-    // Messages table
-    $msgTable = $DB->getTable('glpi_plugin_tiao_messages');
+    // Use nomes explícitos no padrão glpi_plugin_<chave>_<sufixo>
+    $msgTable = 'glpi_plugin_tiao_messages';
     if (! $DB->tableExists($msgTable)) {
         $DB->queryOrDie(
             "CREATE TABLE `{$msgTable}` (
-                `id`     INT UNSIGNED NOT NULL AUTO_INCREMENT,
-                `phone`  VARCHAR(255) DEFAULT NULL,
-                `message` TEXT DEFAULT NULL,
-                `origin` VARCHAR(255) DEFAULT NULL,
-                `direction` VARCHAR(16) DEFAULT NULL,
-                `username` VARCHAR(255) DEFAULT NULL,
-                `item_id` INT UNSIGNED DEFAULT NULL,
-                `date`   TIMESTAMP NULL DEFAULT NULL,
+                `id`        INT UNSIGNED NOT NULL AUTO_INCREMENT,
+                `phone`     VARCHAR(255) DEFAULT NULL,
+                `message`   TEXT DEFAULT NULL,
+                `origin`    VARCHAR(255) DEFAULT NULL,
+                `direction` VARCHAR(16)  DEFAULT NULL,
+                `username`  VARCHAR(255) DEFAULT NULL,
+                `item_id`   INT UNSIGNED DEFAULT NULL,
+                `date`      TIMESTAMP     NULL DEFAULT NULL,
                 PRIMARY KEY (`id`)
             ) ENGINE=InnoDB COLLATE='utf8mb4_unicode_ci'",
-            "Error creating {$msgTable}"
+            "Error creating {$msgTable} table"
         );
     }
-    // Configuration table
-    $cfgTable = $DB->getTable('glpi_plugin_tiao_configs');
+
+    $cfgTable = 'glpi_plugin_tiao_configs';
     if (! $DB->tableExists($cfgTable)) {
         $DB->queryOrDie(
             "CREATE TABLE `{$cfgTable}` (
@@ -61,9 +61,10 @@ function plugin_tiao_install() {
                 `value` TEXT,
                 PRIMARY KEY (`name`)
             ) ENGINE=InnoDB COLLATE='utf8mb4_unicode_ci'",
-            "Error creating {$cfgTable}"
+            "Error creating {$cfgTable} table"
         );
     }
+
     return true;
 }
 
@@ -72,9 +73,13 @@ function plugin_tiao_install() {
  */
 function plugin_tiao_uninstall() {
     global $DB;
-    $DB->queryOrDie("DROP TABLE IF EXISTS `".$DB->getTable('plugin_tiao_messages')."`",
-        "Error dropping messages table");
-    $DB->queryOrDie("DROP TABLE IF EXISTS `".$DB->getTable('plugin_tiao_configs')."`",
-        "Error dropping configs table");
+    $DB->queryOrDie(
+        "DROP TABLE IF EXISTS `glpi_plugin_tiao_messages`",
+        "Error dropping glpi_plugin_tiao_messages table"
+    );
+    $DB->queryOrDie(
+        "DROP TABLE IF EXISTS `glpi_plugin_tiao_configs`",
+        "Error dropping glpi_plugin_tiao_configs table"
+    );
     return true;
 }
