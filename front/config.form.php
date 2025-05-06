@@ -11,7 +11,6 @@ include_once GLPI_ROOT . '/plugins/tiao/inc/hook.php';
 Session::checkRight('config', 'tiao', 'w');
 
 // Header: use 'config' menu for plugin configuration
-table::displayHeader(['config', 'tiao']);
 Html::header(
     'Configuração Tião',
     $_SERVER['PHP_SELF'],
