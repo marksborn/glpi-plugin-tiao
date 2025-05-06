@@ -45,7 +45,7 @@ function plugin_init_tiao() {
         'title'   => 'Tião Dashboard',
         'page'    => 'front/dashboard.php',
         'icon'    => 'fas fa-robot',
-        'parents' => ['plugins']  // agora plural, conforme padrão
+        'parents' => ['plugin']  // agora plural, conforme padrão
     ];  
 
     // Config page callback
