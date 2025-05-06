@@ -2,11 +2,12 @@
 include_once __DIR__ . '/../../inc/includes.php';
 // Use 'plugin' menu for the dashboard page
 Html::header(
-    'Tião',
+    'Tião Dashboard',
     $_SERVER['PHP_SELF'],
-    'plugin',
-    'tiao'
+    'plugins',  // menu principal correto
+    'tiao'      // submenu correto
 );
+
 
 Session::checkRight('plugin', 'tiao', 'r');
 
