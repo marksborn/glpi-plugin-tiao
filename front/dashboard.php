@@ -10,7 +10,7 @@ Session::checkRight('plugin', 'tiao', 'r');
 Html::header(
     'Tião Dashboard',
     $_SERVER['PHP_SELF'],
-    'plugins',  // menu principal, plural
+    'plugin',  // menu principal, plural
     'tiao'      // chave do plugin
 );
 
