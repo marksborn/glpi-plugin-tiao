@@ -1,6 +1,5 @@
 <?php
 // Public endpoint for SendPulse webhook
-
 define('GLPI_ROOT', __DIR__ . '/../../..');
 include_once GLPI_ROOT . '/inc/includes.php';
 header('Content-Type: application/json');
@@ -14,18 +13,17 @@ if (!$request) {
 
 // Map fields to plugin table
 global $DB;
-$table = 'glpi_plugin_tiao_messages';
+$table = $DB->getTable('plugin_tiao_messages');
 $data = [
-    'phone'      => $request['phone'] ?? null,
-    'message'    => $request['message'] ?? null,
-    'origin'     => $request['origin'] ?? null,
-    'direction'  => $request['direction'] ?? null,
-    'username'   => $request['username'] ?? null,
-    'item_id'    => $request['item_id'] ?? null,
-    'date'       => date('Y-m-d H:i:s')
+    'phone'     => $request['phone'] ?? null,
+    'message'   => $request['message'] ?? null,
+    'origin'    => $request['origin'] ?? null,
+    'direction' => $request['direction'] ?? null,
+    'username'  => $request['username'] ?? null,
+    'item_id'   => $request['item_id'] ?? null,
+    'date'      => date('Y-m-d H:i:s')
 ];
 $DB->insert($table, $data);
 
 echo json_encode(['status' => 'ok']);
 exit;
-?>

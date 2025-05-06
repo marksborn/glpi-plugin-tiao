@@ -30,10 +30,51 @@ function plugin_tiao_check_prerequisites() {
 }
 
 /**
- * Post-installation configuration checks
+ * Installation: create plugin-specific tables
  */
-function plugin_tiao_check_config() {
-    // Verifique aqui chaves de API ou dependências de configuração
+function plugin_tiao_install() {
+    global $DB;
+    // Messages table
+    $msgTable = $DB->getTable('plugin_tiao_messages');
+    if (! $DB->tableExists($msgTable)) {
+        $DB->queryOrDie(
+            "CREATE TABLE `{$msgTable}` (
+                `id`     INT UNSIGNED NOT NULL AUTO_INCREMENT,
+                `phone`  VARCHAR(255) DEFAULT NULL,
+                `message` TEXT DEFAULT NULL,
+                `origin` VARCHAR(255) DEFAULT NULL,
+                `direction` VARCHAR(16) DEFAULT NULL,
+                `username` VARCHAR(255) DEFAULT NULL,
+                `item_id` INT UNSIGNED DEFAULT NULL,
+                `date`   TIMESTAMP NULL DEFAULT NULL,
+                PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB COLLATE='utf8mb4_unicode_ci'",
+            "Error creating {$msgTable}"
+        );
+    }
+    // Configuration table
+    $cfgTable = $DB->getTable('plugin_tiao_configs');
+    if (! $DB->tableExists($cfgTable)) {
+        $DB->queryOrDie(
+            "CREATE TABLE `{$cfgTable}` (
+                `name`  VARCHAR(64) NOT NULL,
+                `value` TEXT,
+                PRIMARY KEY (`name`)
+            ) ENGINE=InnoDB COLLATE='utf8mb4_unicode_ci'",
+            "Error creating {$cfgTable}"
+        );
+    }
     return true;
 }
-?>
+
+/**
+ * Uninstallation: drop plugin-specific tables
+ */
+function plugin_tiao_uninstall() {
+    global $DB;
+    $DB->queryOrDie("DROP TABLE IF EXISTS `".$DB->getTable('plugin_tiao_messages')."`",
+        "Error dropping messages table");
+    $DB->queryOrDie("DROP TABLE IF EXISTS `".$DB->getTable('plugin_tiao_configs')."`",
+        "Error dropping configs table");
+    return true;
+}
