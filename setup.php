@@ -83,3 +83,6 @@ function plugin_tiao_uninstall() {
     );
     return true;
 }
+
+// Carrega as definições de hooks
+include_once __DIR__ . '/inc/hook.php';
