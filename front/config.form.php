@@ -1,16 +1,14 @@
 <?php
-// Define GLPI root and load core
 if (!defined('GLPI_ROOT')) {
     define('GLPI_ROOT', dirname(__DIR__, 2));
 }
 include_once GLPI_ROOT . '/inc/includes.php';
-// Load plugin hooks (where getConfig/setConfig are defined)
 include_once GLPI_ROOT . '/plugins/tiao/inc/hook.php';
 
-// Check write rights to config
+// Verificação de permissão
 Session::checkRight('config', 'tiao', 'w');
 
-// Header: use 'config' menu for plugin configuration
+// Cabeçalho da página de configuração
 Html::header(
     'Configuração Tião',
     $_SERVER['PHP_SELF'],
@@ -18,7 +16,7 @@ Html::header(
     'tiao'
 );
 
-// Handle POST submission
+// Processa submissão do formulário
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $apiUser   = $_POST['api_user']   ?? '';
     $apiSecret = $_POST['api_secret'] ?? '';
@@ -27,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo "<div class='alert alert-success'>Configurações salvas com sucesso.</div>";
 }
 
-// Load current values
+// Carrega valores atuais
 $apiUser   = plugin_tiao_getConfig('api_user', '');
 $apiSecret = plugin_tiao_getConfig('api_secret', '');
 ?>
@@ -36,17 +34,17 @@ $apiSecret = plugin_tiao_getConfig('api_secret', '');
     <tr><th colspan="2">Credenciais SendPulse</th></tr>
     <tr>
       <td>API User ID</td>
-      <td><input type="text" name="api_user" value="<?php echo Html::encode($apiUser); ?>" size="50"></td>
+      <td><input type="text" name="api_user" value="<?php echo Html::encode($apiUser); ?>" size="50" /></td>
     </tr>
     <tr>
       <td>API Secret</td>
-      <td><input type="text" name="api_secret" value="<?php echo Html::encode($apiSecret); ?>" size="50"></td>
+      <td><input type="text" name="api_secret" value="<?php echo Html::encode($apiSecret); ?>" size="50" /></td>
     </tr>
     <tr>
-      <td colspan="2"><input type="submit" class="submit" value="Salvar"></td>
+      <td colspan="2"><input type="submit" class="submit" value="Salvar" /></td>
     </tr>
   </table>
 </form>
 <?php
+// Rodapé padrão do GLPI
 Html::footer();
-?>
