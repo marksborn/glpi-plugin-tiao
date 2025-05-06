@@ -35,7 +35,7 @@ function plugin_tiao_check_prerequisites() {
 function plugin_tiao_install() {
     global $DB;
     // Messages table
-    $msgTable = $DB->getTable('plugin_tiao_messages');
+    $msgTable = $DB->getTable('glpi_plugin_tiao_messages');
     if (! $DB->tableExists($msgTable)) {
         $DB->queryOrDie(
             "CREATE TABLE `{$msgTable}` (
@@ -53,7 +53,7 @@ function plugin_tiao_install() {
         );
     }
     // Configuration table
-    $cfgTable = $DB->getTable('plugin_tiao_configs');
+    $cfgTable = $DB->getTable('glpi_plugin_tiao_configs');
     if (! $DB->tableExists($cfgTable)) {
         $DB->queryOrDie(
             "CREATE TABLE `{$cfgTable}` (
