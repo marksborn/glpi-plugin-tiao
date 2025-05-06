@@ -5,17 +5,8 @@ if (!defined('GLPI_ROOT')) {
 include_once GLPI_ROOT . '/inc/includes.php';
 include_once GLPI_ROOT . '/plugins/tiao/inc/hook.php';
 
-// Verificação de permissão
+// Permissão de configuração
 Session::checkRight('config', 'tiao', 'w');
-
-// Cabeçalho da página de configuração
-Html::header(
-    'Configuração Tião',
-    $_SERVER['PHP_SELF'],
-    'plugin',  // use 'plugin' em vez de 'config'
-    'tiao'
-);
-
 
 // Processa submissão do formulário
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -46,6 +37,3 @@ $apiSecret = plugin_tiao_getConfig('api_secret', '');
     </tr>
   </table>
 </form>
-<?php
-// Rodapé padrão do GLPI
-Html::footer();
