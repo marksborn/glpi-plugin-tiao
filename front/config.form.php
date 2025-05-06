@@ -12,9 +12,10 @@ Session::checkRight('config', 'tiao', 'w');
 Html::header(
     'Configuração Tião',
     $_SERVER['PHP_SELF'],
-    'config',
+    'plugin',  // use 'plugin' em vez de 'config'
     'tiao'
 );
+
 
 // Processa submissão do formulário
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
